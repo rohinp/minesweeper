@@ -9,8 +9,7 @@ public interface MineField {
     void dot(int x, int y);
     Optional<Cell> val(int x, int y);
     void mine(int x, int y);
-    int row();
-    int col();
+
     List<Cell> field();
 
     static MineField init(int row, int col) {
@@ -21,22 +20,14 @@ public interface MineField {
         return new FieldEval(initField).eval();
     }
 
-    class InvalidCellModification extends RuntimeException{
-        public InvalidCellModification(String msg) {
-            super(msg);
-        }
-    }
+    class InvalidCellModification extends RuntimeException{}
 }
 
 class InitField implements MineField {
-    private final int row;
-    private final int col;
-    final List<Cell> field;
+    private final List<Cell> field;
 
     InitField(int row, int col) {
-        this.row = row;
-        this.col = col;
-        field = new ArrayList<>(this.row * this.col);
+        field = new ArrayList<>(row * col);
     }
 
     @Override
@@ -47,16 +38,6 @@ class InitField implements MineField {
     @Override
     public void mine(int x, int y) {
         field.add(Cell.mine(x,y));
-    }
-
-    @Override
-    public int row() {
-        return row;
-    }
-
-    @Override
-    public int col() {
-        return col;
     }
 
     @Override
@@ -97,7 +78,7 @@ class FieldEval implements MineField {
 
     @Override
     public void dot(int x, int y) {
-        throw new InvalidCellModification("Must be a num");
+        throw new InvalidCellModification();
     }
 
     @Override
@@ -107,17 +88,7 @@ class FieldEval implements MineField {
 
     @Override
     public void mine(int x, int y) {
-        throw new InvalidCellModification("Must be a num");
-    }
-
-    @Override
-    public int row() {
-        return initField.row();
-    }
-
-    @Override
-    public int col() {
-        return initField.col();
+        throw new InvalidCellModification();
     }
 
     @Override

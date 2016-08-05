@@ -54,9 +54,9 @@ public class MineFieldEvaluatorTests {
         MineField evaluateField =  MineField.eval(initField);
 
         //then
-        assertEquals("*",evaluateField.val(0,0));
-        assertEquals("1",evaluateField.val(0,1));
-        assertEquals("1",evaluateField.val(1,1));
-        assertEquals("1",evaluateField.val(1,0));
+        assertEquals("*",evaluateField.val(0,0).get().val());
+        assertEquals("1",evaluateField.val(0,1).get().val());
+        assertEquals("1",evaluateField.val(1,1).get().val());
+        assertEquals("1",evaluateField.val(1,0).get().val());
     }
 }
