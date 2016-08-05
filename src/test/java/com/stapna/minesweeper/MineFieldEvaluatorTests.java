@@ -105,5 +105,6 @@ public class MineFieldEvaluatorTests {
         assertEquals("1",evaluateField.val(0,3).get().val());
         assertEquals("1",evaluateField.val(0,3).get().val());
         assertEquals("1",evaluateField.val(1,3).get().val());
+
     }
 }

@@ -68,11 +68,6 @@ class InitField implements MineField {
         return field.stream().filter(e -> e.x() == x && e.y() == y).findFirst();
     }
 
-    @Override
-    public String toString() {
-        return field().stream().map(e -> " ("+ e.x() + " , " + e.y() + ") "+ e.val() + "->").reduce("", String::concat);
-    }
-
 }
 
 class FieldEval implements MineField {
@@ -144,7 +139,11 @@ class FieldEval implements MineField {
 
     @Override
     public String toString() {
-        return field.stream().map(Cell::val).reduce("", String::concat);
+        return field.stream().map(this::formString).reduce("", String::concat);
+    }
+
+    private String formString(Cell c) {
+        return ((c.x() + 1) % row()) == 0 ?   c.val() + "\n": c.val();
     }
 }
 
