@@ -24,6 +24,12 @@ public interface Cell {
             public int y() {
                 return yco;
             }
+
+            @Override
+            public String toString(){
+                return "( " + x() + " , " + y() + " ) -> " + val();
+            }
+
         };
     }
 
@@ -47,6 +53,11 @@ public interface Cell {
             @Override
             public int y() {
                 return yco;
+            }
+
+            @Override
+            public String toString(){
+                return "( " + x() + " , " + y() + " ) -> " + val();
             }
         };
     }
@@ -72,6 +83,11 @@ public interface Cell {
             @Override
             public int y() {
                 return yco;
+            }
+
+            @Override
+            public String toString(){
+                return "( " + x() + " , " + y() + " ) -> " + val();
             }
         };
     }
