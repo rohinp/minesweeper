@@ -44,7 +44,6 @@ public class InitMineFieldTests {
 
         //when
 
-        mineField.mine(2,3);
         IntStream.range(0,4)
                 .forEach( y -> IntStream.range(0,4)
                         .forEach(x -> {

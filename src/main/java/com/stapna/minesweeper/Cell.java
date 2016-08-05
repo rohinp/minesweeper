@@ -11,11 +11,6 @@ public interface Cell {
             }
 
             @Override
-            public boolean isDot() {
-                return false;
-            }
-
-            @Override
             public String val() {
                 return "*";
             }
@@ -37,11 +32,6 @@ public interface Cell {
             @Override
             public boolean isMine() {
                 return false;
-            }
-
-            @Override
-            public boolean isDot() {
-                return true;
             }
 
             @Override
@@ -70,11 +60,6 @@ public interface Cell {
             }
 
             @Override
-            public boolean isDot() {
-                return false;
-            }
-
-            @Override
             public String val() {
                 return adjMines+"";
             }
@@ -92,7 +77,6 @@ public interface Cell {
     }
 
     boolean isMine();
-    boolean isDot();
     String val();
     int x();
     int y();

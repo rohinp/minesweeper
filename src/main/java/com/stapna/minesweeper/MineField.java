@@ -9,7 +9,6 @@ public interface MineField {
     void dot(int x, int y);
     Optional<Cell> val(int x, int y);
     void mine(int x, int y);
-    void num(int x,int y, int num);
     int row();
     int col();
     List<Cell> field();
@@ -19,7 +18,7 @@ public interface MineField {
     }
 
     static MineField eval(MineField initField) {
-        return new FieldEvaluator(initField).eval();
+        return new FieldEval(initField).eval();
     }
 
     class InvalidCellModification extends RuntimeException{
@@ -51,11 +50,6 @@ class InitField implements MineField {
     }
 
     @Override
-    public void num(int x, int y, int num) {
-        throw new InvalidCellModification("Must be Dot or Mine");
-    }
-
-    @Override
     public int row() {
         return row;
     }
@@ -77,23 +71,28 @@ class InitField implements MineField {
 
 }
 
-class FieldEvaluator implements MineField {
+class FieldEval implements MineField {
     private final List<Cell> field;
     private final MineField initField;
 
-    public FieldEvaluator(MineField field) {
+    public FieldEval(MineField field) {
         this.field = new ArrayList<>();
         this.initField = field;
     }
 
-    private FieldEvaluator(List<Cell> field,MineField mfield) {
-        System.out.println(field);
+    private FieldEval(List<Cell> field, MineField mineField) {
         this.field = field;
-        this.initField = mfield;
+        this.initField = mineField;
     }
 
-    FieldEvaluator eval() {
-        return new FieldEvaluator(initField.field().stream().map(c -> Cell.num(c.x(),c.y(),0)).collect(Collectors.toList()), initField);
+    FieldEval eval() {
+        return new FieldEval(initField.field().stream().map(this::createCell).collect(Collectors.toList()), initField);
+    }
+
+    private Cell createCell(Cell c) {
+        if(c.isMine())
+            return c;
+        return Cell.num(c.x(),c.y(),0);
     }
 
     @Override
@@ -109,11 +108,6 @@ class FieldEvaluator implements MineField {
     @Override
     public void mine(int x, int y) {
         throw new InvalidCellModification("Must be a num");
-    }
-
-    @Override
-    public void num(int x, int y, int num) {
-
     }
 
     @Override

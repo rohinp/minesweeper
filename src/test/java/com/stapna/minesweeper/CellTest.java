@@ -3,7 +3,6 @@ package com.stapna.minesweeper;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
 
 public class CellTest {
 
@@ -15,7 +14,6 @@ public class CellTest {
         // when
 
         //then
-        assertTrue(plainCell.isDot());
         assertEquals(".",plainCell.val());
         assertEquals(2,plainCell.x());
         assertEquals(3,plainCell.y());
@@ -29,7 +27,6 @@ public class CellTest {
         // when
 
         //then
-        assertTrue(mine.isMine());
         assertEquals("*",mine.val());
         assertEquals(2,mine.x());
         assertEquals(3,mine.y());
