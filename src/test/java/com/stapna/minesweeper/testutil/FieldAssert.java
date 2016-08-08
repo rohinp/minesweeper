@@ -15,10 +15,10 @@ public class FieldAssert {
     }
 
     public static void assertMineOnCondition(Condition condition,MineField initField){
-        Generator.genericGenerator(condition,initField,(x, y, m) -> assertEquals("*",m.val(x,y).get().val()),(x, y, m) -> assertEquals(".",m.val(x,y).get().val()));
+        Generator.mineGenerator(condition,initField,(x, y, m) -> assertEquals("*",m.val(x,y).get().val()),(x, y, m) -> assertEquals(".",m.val(x,y).get().val()));
     }
 
     public static void assertEvaluatedMineAllDot(MineField initField){
-        Generator.genericGenerator((x,y)-> true,initField,(x, y, m) -> assertEquals("0",m.val(x,y).get().val()),(x, y, m) -> assertEquals("0",m.val(x,y).get().val()));
+        Generator.mineGenerator((x, y)-> true,initField,(x, y, m) -> assertEquals("0",m.val(x,y).get().val()),(x, y, m) -> assertEquals("0",m.val(x,y).get().val()));
     }
 }

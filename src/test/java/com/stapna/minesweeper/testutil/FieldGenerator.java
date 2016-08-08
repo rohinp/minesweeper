@@ -14,7 +14,7 @@ public class FieldGenerator {
     }
 
     public static void generateMineOnCondition(Condition condition,MineField initField){
-        genericGenerator(condition,initField,(x,y,m) -> m.mine(x,y),(x,y,m) -> m.dot(x,y));
+        mineGenerator(condition,initField,(x, y, m) -> m.mine(x,y),(x, y, m) -> m.dot(x,y));
     }
 }
 

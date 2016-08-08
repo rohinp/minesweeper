@@ -5,16 +5,16 @@ import com.stapna.minesweeper.MineField;
 import static java.util.stream.IntStream.range;
 
 @FunctionalInterface
-interface CustomConsumer {
-    void accept(int xco, int yco, MineField mineField);
+interface CustomConsumer<T> {
+    void accept(int xco, int yco, T t);
 }
 
 @FunctionalInterface
-interface Generator {
-    void generator(Condition condition, MineField mineField, CustomConsumer consumerOnTrue, CustomConsumer consumerOnFalse);
+interface Generator<T> {
+    void generator(Condition condition, T t, CustomConsumer<T> consumerOnTrue, CustomConsumer<T> consumerOnFalse);
 
-    static void genericGenerator(Condition condition, MineField mineField, CustomConsumer consumerOnTrue, CustomConsumer consumerOnFalse){
-        ((Generator) (con,field,ts,fs) -> range(0,field.col())
+    static<T extends MineField> void mineGenerator(Condition condition, T mineField, CustomConsumer<MineField> consumerOnTrue, CustomConsumer<MineField> consumerOnFalse){
+        ((Generator<MineField>) (con,field,ts,fs) -> range(0,field.col())
                 .forEach( y -> range(0,field.row())
                         .forEach(x -> {
                             if(con.ifThenElse(x,y))

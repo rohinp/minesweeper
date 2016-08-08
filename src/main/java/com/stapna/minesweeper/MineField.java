@@ -9,12 +9,14 @@ import static java.util.stream.IntStream.*;
 
 public interface MineField {
     void dot(int x, int y);
-    Optional<Cell> val(int x, int y);
     void mine(int x, int y);
     int row();
     int col();
-
     List<Cell> field();
+
+    default Optional<Cell> val(int x, int y) {
+        return field().stream().filter(e -> e.x() == x && e.y() == y).findFirst();
+    }
 
     static MineField init(int row, int col) {
         return new InitField(row,col);
@@ -63,11 +65,6 @@ class InitField implements MineField {
         return field;
     }
 
-    @Override
-    public Optional<Cell> val(int x, int y) {
-        return field.stream().filter(e -> e.x() == x && e.y() == y).findFirst();
-    }
-
 }
 
 class FieldEval implements MineField {
@@ -110,11 +107,6 @@ class FieldEval implements MineField {
     @Override
     public void dot(int x, int y) {
         throw new InvalidCellModification();
-    }
-
-    @Override
-    public Optional<Cell> val(int x, int y) {
-        return field.stream().filter(e -> e.x() == x && e.y() == y).findFirst();
     }
 
     @Override
