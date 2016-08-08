@@ -2,53 +2,48 @@ package com.stapna.minesweeper;
 
 import org.junit.Test;
 
-import static java.util.stream.IntStream.range;
+import static com.stapna.minesweeper.testutil.FieldAssert.assertAllMine;
+import static com.stapna.minesweeper.testutil.FieldAssert.assertEvaluatedMineAllDot;
+import static com.stapna.minesweeper.testutil.FieldGenerator.*;
 import static org.junit.Assert.assertEquals;
 
 public class MineFieldEvaluatorTests {
+
+    private final int row = 4;
+    private final int col = 4;
+
     @Test
     public void itShouldTakeAnInitializedField_AllDots_CreateFieldWith_AdjMineCells() {
         //given
-        MineField initField = MineField.init(4,4);
-        range(0,4)
-                .forEach( y -> range(0,4)
-                        .forEach(x -> initField.dot(x,y)));
+        MineField initField = MineField.init(row,col);
+
+        generateDot(initField);
         //when
         MineField evaluateField =  MineField.eval(initField);
 
         //then
-        range(0,4)
-                .forEach( y -> range(0,4)
-                        .forEach(x -> assertEquals("0",evaluateField.val(x,y).get().val())));
+        assertEvaluatedMineAllDot(evaluateField);
     }
 
     @Test
     public void itShouldTakeAnInitializedField_AllMine_CreateFieldWith_AdjMineCells() {
         //given
-        MineField initField = MineField.init(4,4);
-        range(0,4)
-                .forEach( y -> range(0,4)
-                        .forEach(x -> initField.mine(x,y)));
+        MineField initField = MineField.init(row,col);
+        generateMine(initField);
+
         //when
         MineField evaluateField =  MineField.eval(initField);
 
         //then
-        range(0,4)
-                .forEach( y -> range(0,4)
-                        .forEach(x -> assertEquals("*",evaluateField.val(x,y).get().val())));
+        assertAllMine(evaluateField);
     }
 
     @Test
     public void itShouldTakeAnInitializedField_MineAtCorner_0_0_CreateFieldWith_AdjMineCells() {
         //given
         MineField initField = MineField.init(4,4);
-        range(0,4)
-                .forEach( y -> range(0,4)
-                        .forEach(x -> {
-                            if((x == 0 && y == 0))
-                                initField.mine(x,y);
-                            else
-                                initField.dot(x,y);}));
+        generateMineOnCondition((x,y)->((x == 0 && y == 0)),initField);
+
         //when
         MineField evaluateField =  MineField.eval(initField);
 
@@ -63,13 +58,8 @@ public class MineFieldEvaluatorTests {
     public void itShouldTakeAnInitializedField_MineOnBorder_0_2_CreateFieldWith_AdjMineCells() {
         //given
         MineField initField = MineField.init(5,5);
-        range(0,5)
-                .forEach( y -> range(0,5)
-                        .forEach(x -> {
-                            if((x == 0 && y == 2))
-                                initField.mine(x,y);
-                            else
-                                initField.dot(x,y);}));
+        generateMineOnCondition((x,y) -> ((x == 0 && y == 2)),initField);
+
         //when
         MineField evaluateField =  MineField.eval(initField);
 
@@ -87,13 +77,8 @@ public class MineFieldEvaluatorTests {
     public void itShouldTakeAnInitializedField_MineInMid_2_3_CreateFieldWith_AdjMineCells() {
         //given
         MineField initField = MineField.init(5,5);
-        range(0,5)
-                .forEach( y -> range(0,5)
-                        .forEach(x -> {
-                            if((x == 0 && y == 2))
-                                initField.mine(x,y);
-                            else
-                                initField.dot(x,y);}));
+        generateMineOnCondition((x,y) -> ((x == 0 && y == 2)),initField);
+
         //when
         MineField evaluateField =  MineField.eval(initField);
 
