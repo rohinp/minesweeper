@@ -1,6 +1,8 @@
 package com.stapna.minesweeper.testutil;
 
 import com.stapna.minesweeper.MineField;
+import com.stapna.minesweeper.testutil.genericgenerator.Condition;
+import com.stapna.minesweeper.testutil.genericgenerator.Generator;
 
 import static org.junit.Assert.assertEquals;
 
@@ -14,7 +16,7 @@ public class FieldAssert {
         assertMineOnCondition((x,y) -> true,initField);
     }
 
-    public static void assertMineOnCondition(Condition condition,MineField initField){
+    public static void assertMineOnCondition(Condition condition, MineField initField){
         Generator.mineGenerator(condition,initField,(x, y, m) -> assertEquals("*",m.val(x,y).get().val()),(x, y, m) -> assertEquals(".",m.val(x,y).get().val()));
     }
 

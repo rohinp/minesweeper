@@ -1,4 +1,4 @@
-package com.stapna.minesweeper.testutil;
+package com.stapna.minesweeper.testutil.genericgenerator;
 
 @FunctionalInterface
 public interface Condition {

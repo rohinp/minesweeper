@@ -1,16 +1,11 @@
-package com.stapna.minesweeper.testutil;
+package com.stapna.minesweeper.testutil.genericgenerator;
 
 import com.stapna.minesweeper.MineField;
 
 import static java.util.stream.IntStream.range;
 
 @FunctionalInterface
-interface CustomConsumer<T> {
-    void accept(int xco, int yco, T t);
-}
-
-@FunctionalInterface
-interface Generator<T> {
+public interface Generator<T> {
     void generator(Condition condition, T t, CustomConsumer<T> consumerOnTrue, CustomConsumer<T> consumerOnFalse);
 
     static<T extends MineField> void mineGenerator(Condition condition, T mineField, CustomConsumer<MineField> consumerOnTrue, CustomConsumer<MineField> consumerOnFalse){
