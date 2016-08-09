@@ -26,7 +26,6 @@ public interface MineField {
         return new FieldEval(initField).eval();
     }
 
-    class InvalidCellModification extends RuntimeException{}
 }
 
 class InitField implements MineField {
@@ -94,24 +93,31 @@ class FieldEval implements MineField {
     }
 
     private void modifyCellNum(Cell c, int x, int y) {
-        if(isValidAndMine(c,x,y))
+        if(isValid(c,x,y))
             mutableCell = Cell.num(mutableCell.x(), mutableCell.y(),Integer.parseInt(mutableCell.val()) + 1);
     }
 
-    private boolean isValidAndMine(Cell c, int x, int y) {
-        return  !(x == 0 && y == 0) && !((c.x() + x) < 0 || (c.y() + y) < 0) &&
-                ((c.x() + x) < row() && (c.y() + y) < col()) &&
-                initField.val(c.x() + x,c.y() + y).get().isMine();
+    private boolean isValid(Cell c, int x, int y) {
+        return isNeighborInField(c, x, y) && isMine(c, x, y);
+    }
+
+    private boolean isMine(Cell c, int x, int y) {
+        return initField.val(c.x() + x, c.y() + y).get().isMine();
+    }
+
+    private boolean isNeighborInField(Cell c, int x, int y) {
+        return !((c.x() + x) < 0 || (c.y() + y) < 0) &&
+                ((c.x() + x) < row() && (c.y() + y) < col());
     }
 
     @Override
     public void dot(int x, int y) {
-        throw new InvalidCellModification();
+        throw new RuntimeException("Invalid Cell Modification");
     }
 
     @Override
     public void mine(int x, int y) {
-        throw new InvalidCellModification();
+        throw new RuntimeException("Invalid Cell Modification");
     }
 
     @Override
@@ -138,5 +144,6 @@ class FieldEval implements MineField {
         return ((c.x() + 1) % row()) == 0 ?   c.val() + "\n": c.val();
     }
 }
+
 
 
